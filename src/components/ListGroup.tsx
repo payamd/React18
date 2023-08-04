@@ -1,20 +1,25 @@
 import { useState } from "react";
 
-function ListGroup() {
-  const cities = ["New York", "Tokio", "London", "Tehran"];
+interface Props {
+  items: string[];
+  heading: string;
+  onSelectItem: (item: string) => void;
+}
+
+function ListGroup({ items, heading, onSelectItem }: Props) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
     <>
-      <h1>List:</h1>
+      <h1>List of {heading}:</h1>
 
-      {cities.length === 0 ? (
+      {items.length === 0 ? (
         <p> The list is empty, these two are the same</p>
       ) : null}
-      {cities.length === 0 && <p> The list is empty</p>}
+      {items.length === 0 && <p> The list is empty</p>}
 
       <ul className="list-group">
-        {cities.map((item, index) => (
+        {items.map((item, index) => (
           <li
             className={
               selectedIndex === index
@@ -24,6 +29,7 @@ function ListGroup() {
             key={item}
             onClick={() => {
               setSelectedIndex(index);
+              onSelectItem(item);
             }}
           >
             {item}
