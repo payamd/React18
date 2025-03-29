@@ -18,7 +18,6 @@ function ListGroup() {
             onClick={() => console.log(item.id)}
           >
             {item.name}
-            <p>Payam</p>
           </li>
         ))}
       </ul>
