@@ -1,4 +1,5 @@
 import Alert from "./components/Alert";
+import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
 
 function App() {
@@ -19,12 +20,15 @@ function App() {
 
   return (
     <div>
-      <Alert message={"silam silam"}></Alert>
+      <Alert>
+        <p>silam silam silam</p>
+      </Alert>
       <ListGroup
         items={items}
         heading={heading}
         onSelectItem={handleSelectItem}
       ></ListGroup>
+      <Button type="danger" text="silam silam"></Button>
     </div>
   );
 }
