@@ -12,6 +12,9 @@ interface Props {
 }
 
 const ExpenceList = ({ expences, onDelete }: Props) => {
+  if (expences.length === 0) {
+    return <p>No expences found to show on the table at this moment!</p>;
+  }
   return (
     <>
       <div>ExpenceList</div>
@@ -45,7 +48,9 @@ const ExpenceList = ({ expences, onDelete }: Props) => {
           <tr>
             <td>Total</td>
             <td>
-              {expences.reduce((acc, expences) => expences.amount + acc, 0).toFixed(2)}
+              {expences
+                .reduce((acc, expences) => expences.amount + acc, 0)
+                .toFixed(2)}
             </td>
             <td></td>
             <td></td>

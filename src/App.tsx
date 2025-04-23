@@ -3,6 +3,7 @@ import Alert from "./components/Alert";
 import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
 import ExpenceList from "./expence-tracker/components/ExpenceList";
+import ExpenceFilter from "./expence-tracker/components/ExpenceFilter";
 
 function App() {
   let items = [
@@ -20,6 +21,8 @@ function App() {
     console.log(`Selected item: ${item}`);
   };
 
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const [expences, setExpenses] = useState([
     { id: 1, description: "Groceries", amount: 50, category: "Food" },
     { id: 2, description: "Rent", amount: 1200, category: "Housing" },
@@ -34,18 +37,33 @@ function App() {
     { id: 6, description: "Clothing", amount: 80, category: "Fashion" },
   ]);
 
+  const visibleExpences = selectedCategory
+    ? expences.filter((expence) => expence.category === selectedCategory)
+    : expences;
+
   return (
     <div>
       <Alert>
         <p>Welcome to my shop!</p>
       </Alert>
+      <div className="mb-3">
+        <ExpenceFilter
+          onSelectCategory={(category) => {
+            setSelectedCategory(category);
+          }}
+        ></ExpenceFilter>
+      </div>
+
       <ExpenceList
-        expences={expences}
+        expences={visibleExpences}
         onDelete={(id) => {
           setExpenses((prev) => prev.filter((expence) => expence.id !== id));
           console.log(`Deleted expence with id: ${id}`);
         }}
       ></ExpenceList>
+
+      <br />
+      <hr />
 
       <ListGroup
         items={items}
