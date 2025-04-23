@@ -4,6 +4,14 @@ import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
 import ExpenceList from "./expence-tracker/components/ExpenceList";
 import ExpenceFilter from "./expence-tracker/components/ExpenceFilter";
+import ExpenceForm from "./expence-tracker/ExpenceForm";
+
+export const categories = [
+  "Groceries",
+  "Utilities",
+  "Entertainment",
+  "Transport",
+];
 
 function App() {
   let items = [
@@ -24,17 +32,27 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const [expences, setExpenses] = useState([
-    { id: 1, description: "Groceries", amount: 50, category: "Food" },
-    { id: 2, description: "Rent", amount: 1200, category: "Housing" },
-    { id: 3, description: "Utilities", amount: 200, category: "Housing" },
+    { id: 1, description: "Groceries", amount: 50, category: "Groceries" },
+    {
+      id: 2,
+      description: "Entertainmnet",
+      amount: 1200,
+      category: "Entertainment",
+    },
+    { id: 3, description: "Utilities", amount: 200, category: "Utilities" },
     {
       id: 4,
       description: "Transportation",
       amount: 100,
       category: "Transport",
     },
-    { id: 5, description: "Entertainment", amount: 150, category: "Leisure" },
-    { id: 6, description: "Clothing", amount: 80, category: "Fashion" },
+    {
+      id: 5,
+      description: "Entertainment",
+      amount: 150,
+      category: "Entertainment",
+    },
+    { id: 6, description: "Groceries", amount: 80, category: "Groceries" },
   ]);
 
   const visibleExpences = selectedCategory
@@ -46,6 +64,13 @@ function App() {
       <Alert>
         <p>Welcome to my shop!</p>
       </Alert>
+
+      <div className="mb-5">
+        <ExpenceForm></ExpenceForm>
+      </div>
+
+      <br></br>
+      <hr></hr>
       <div className="mb-3">
         <ExpenceFilter
           onSelectCategory={(category) => {
@@ -70,7 +95,7 @@ function App() {
         heading={heading}
         onSelectItem={handleSelectItem}
       ></ListGroup>
-      <Button type="danger" text="silam silam"></Button>
+      <Button type="danger" text="Button"></Button>
     </div>
   );
 }
