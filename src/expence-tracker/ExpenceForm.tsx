@@ -1,34 +1,79 @@
 import React from "react";
-import { categories } from "../App";
+import categories from "../expence-tracker/components/categories";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const schema = z.object({
+  description: z.string().min(1, "Description is required"),
+  amount: z.number().min(0.01, "Amount must be greater than 0"),
+  category: z.enum(categories, {
+    errorMap: () => ({ message: "Category is required" }),
+  }),
+});
+
+type ExpenceFormData = z.infer<typeof schema>;
 
 const ExpenceForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ExpenceFormData>({
+    resolver: zodResolver(schema),
+  });
+
   return (
-    <form>
+    <form onSubmit={handleSubmit((data) => console.log(data))}>
       <div className="mb-3">
         <label htmlFor="description" className="form-lable">
           Discription
         </label>
-        <input id="discription" type="text" className="form-control" />
+        <input
+          {...register("description")}
+          id="description"
+          type="text"
+          className="form-control"
+        />
+        {errors.description && (
+          <div className="text-danger">{errors.description.message}</div>
+        )}
       </div>
 
       <div className="mb-3">
         <label htmlFor="amount" className="form-label">
           Amount
         </label>
-        <input id="amount" type="number" className="form-control" />
+        <input
+          {...register("amount")}
+          id="amount"
+          type="number"
+          className="form-control"
+        />
+        {errors.amount && (
+          <div className="text-danger">{errors.amount.message}</div>
+        )}
       </div>
 
       <div className="mb-3">
         <label htmlFor="category" className="form-label">
           Category
         </label>
-        <select name="" id="category" className="form-select">
+        <select
+          {...register("category")}
+          name=""
+          id="category"
+          className="form-select"
+        >
           {categories.map((category) => (
             <option value={category} key={category}>
               {category}
             </option>
           ))}
         </select>
+        {errors.category && (
+          <div className="text-danger">{errors.category.message}</div>
+        )}
       </div>
       <button className="btn btn-primary">Submit</button>
     </form>

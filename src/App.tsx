@@ -6,13 +6,6 @@ import ExpenceList from "./expence-tracker/components/ExpenceList";
 import ExpenceFilter from "./expence-tracker/components/ExpenceFilter";
 import ExpenceForm from "./expence-tracker/ExpenceForm";
 
-export const categories = [
-  "Groceries",
-  "Utilities",
-  "Entertainment",
-  "Transport",
-];
-
 function App() {
   let items = [
     "Ottawa",
@@ -31,7 +24,7 @@ function App() {
 
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const [expences, setExpenses] = useState([
+  const [expenses, setExpenses] = useState([
     { id: 1, description: "Groceries", amount: 50, category: "Groceries" },
     {
       id: 2,
@@ -55,9 +48,9 @@ function App() {
     { id: 6, description: "Groceries", amount: 80, category: "Groceries" },
   ]);
 
-  const visibleExpences = selectedCategory
-    ? expences.filter((expence) => expence.category === selectedCategory)
-    : expences;
+  const visibleExpenses = selectedCategory
+    ? expenses.filter((expense) => expense.category === selectedCategory)
+    : expenses;
 
   return (
     <div>
@@ -80,10 +73,10 @@ function App() {
       </div>
 
       <ExpenceList
-        expences={visibleExpences}
+        expences={visibleExpenses}
         onDelete={(id) => {
-          setExpenses((prev) => prev.filter((expence) => expence.id !== id));
-          console.log(`Deleted expence with id: ${id}`);
+          setExpenses((prev) => prev.filter((expense) => expense.id !== id));
+          console.log(`Deleted expense with id: ${id}`);
         }}
       ></ExpenceList>
 
