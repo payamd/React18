@@ -59,7 +59,11 @@ function App() {
       </Alert>
 
       <div className="mb-5">
-        <ExpenceForm></ExpenceForm>
+        <ExpenceForm
+          onSubmit={(expense) =>
+            setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])
+          }
+        ></ExpenceForm>
       </div>
 
       <br></br>
